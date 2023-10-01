@@ -5,9 +5,7 @@ import time
 
 flag = False
 def initializer(game: Game):
-
     my_id = game.get_player_id()['player_id']
-    print(game.get_player_id()['player_id'])
     strategic_nodes = game.get_strategic_nodes()['strategic_nodes']
     score = game.get_strategic_nodes()['score']
     strategic_nodes = list(zip(strategic_nodes, score))
