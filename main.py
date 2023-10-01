@@ -14,7 +14,6 @@ def initializer(game: Game):
     strategic_nodes.sort(key=lambda x: x[1], reverse=True)
     strategic_nodes, score = list(zip(*strategic_nodes))
     adj = game.get_adj()
-
     owner = game.get_owners()
 
     list_of_my_nodes = []
@@ -37,16 +36,9 @@ def initializer(game: Game):
                     return
 
 
-
-
-
 def turn(game: Game):
     global flag
-    print(game.get_player_id())
-    # print(game.get_player_id()['player_id'])
-
     my_id = game.get_player_id()['player_id']
-
     strategic_nodes = game.get_strategic_nodes()['strategic_nodes']
     score = game.get_strategic_nodes()['score']
     strategic_nodes = list(zip(strategic_nodes, score))
@@ -56,7 +48,6 @@ def turn(game: Game):
     adj = game.get_adj()
     # turn_number = game.get_turn_number()['turn_number']
 
-
     ### state 1 : put troop ###
 
     for i in range(5):
@@ -64,8 +55,6 @@ def turn(game: Game):
         if owner[node] == -1 and game.get_number_of_troops_to_put()['number_of_troops'] > 1:
             print(game.put_troop(int(node) , 1 ))
             break
-
-
 
     list_of_my_nodes = []
     for i in owner.keys():
@@ -76,7 +65,6 @@ def turn(game: Game):
     for i in strategic_nodes:
         if owner[str(i)] == my_id:
             list_of_my_strategic_nodes.append(int(i))
-
 
     for i in strategic_nodes:
         if owner[str(i)] == my_id and game.get_number_of_fort_troops()[str(i)] < 15 and game.get_number_of_troops_to_put()['number_of_troops'] > 2:
@@ -100,23 +88,15 @@ def turn(game: Game):
                             print(game.put_troop(int(k) , game.get_number_of_troops_to_put()['number_of_troops']))  
                             break
 
-
     if game.get_number_of_troops_to_put()['number_of_troops'] > 1 :
         node = random.choice(list_of_my_nodes)
         print(game.put_troop(int(node) , game.get_number_of_troops_to_put()['number_of_troops']  ))
 
-
-    
-
-    
     ### state 2 : attack ###
     print(game.next_state())
-
     owner = game.get_owners()
     adj = game.get_adj()
-
-
-                                
+                
     for x in range(5):
         for i in owner.keys():
             if owner[str(i)] == my_id:
@@ -127,6 +107,7 @@ def turn(game: Game):
                                 print(game.attack(int(i) , int(j) , 0.1 , 0.99))
                                 owner = game.get_owners()
                                 break
+                                
         for i in owner.keys():
             if owner[str(i)] == my_id:
                 for j in adj[str(i)]:
@@ -136,6 +117,7 @@ def turn(game: Game):
                                 print(game.attack(int(i) , int(j) , 2.0 , 0.01))
                                 owner = game.get_owners()
                                 break
+                                
         for i in owner.keys():
             if owner[str(i)] == my_id:
                 for j in adj[str(i)]:
@@ -145,6 +127,7 @@ def turn(game: Game):
                                 print(game.attack(int(i) , int(j) , 0.1 , 0.99))
                                 owner = game.get_owners()
                                 break
+                                
         for i in owner.keys():
             if owner[str(i)] == my_id:
                 for j in adj[str(i)]:
@@ -158,13 +141,9 @@ def turn(game: Game):
                                         break
                                     
     ### state 3 : move troop ###
-
     print(game.next_state())
 
-
-
     ### state 4 : fortification ###
-
     print(game.next_state())
     owner = game.get_owners()
     
